@@ -1,5 +1,2 @@
-﻿  game.cpp
-D:\documents\projects\snake_game\game.cpp(8,12): warning C4244: аргумент: преобразование "time_t" в "unsigned int", возможна потеря данных
-  snake_game.cpp
-  Создание кода...
+﻿  snake_game.cpp
   snake_game.vcxproj -> D:\documents\projects\snake_game\x64\Debug\snake_game.exe

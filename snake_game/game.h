@@ -50,7 +50,7 @@ private:
 
 	public:
 
-		Snake(int length);
+		Snake(int length, char symbol);
 		~Snake();
 
 		void ChangeDir();
@@ -72,6 +72,7 @@ private:
 	int BORDER_COLOR;
 
 	int FREQUENCY;
+	char SYMBOL;
 
 	Block** GAME_MAP;
 	Block FOOD;
@@ -87,7 +88,7 @@ private:
 
 public:
 
-	Game(int W, int H, int FREQUENCY = 5, int SNAKE_COLOR = 2, int FOOD_COLOR = 4, int BORDER_COLOR = 7);
+	Game(int W, int H, int FREQUENCY = 5, int SNAKE_COLOR = 2, int FOOD_COLOR = 4, int BORDER_COLOR = 7, char SYMBOL = char(219));
 	~Game();
 
 	void Start(int SNAKE_LENGTH = 3);

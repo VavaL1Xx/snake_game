@@ -3,7 +3,7 @@
 #include <conio.h>
 
 
-Game::Game(int W, int H, int FREQUENCY, int SNAKE_COLOR, int FOOD_COLOR, int BORDER_COLOR) : HEIGHT(H + 2), WIDTH(W + 2) {
+Game::Game(int W, int H, int FREQUENCY, int SNAKE_COLOR, int FOOD_COLOR, int BORDER_COLOR, char SYMBOL) : HEIGHT(H + 2), WIDTH(W + 2) {
 
 	srand(time(NULL));
 
@@ -14,6 +14,7 @@ Game::Game(int W, int H, int FREQUENCY, int SNAKE_COLOR, int FOOD_COLOR, int BOR
 	this->FOOD_COLOR = FOOD_COLOR;
 	this->BORDER_COLOR = BORDER_COLOR;
 	this->FREQUENCY = FREQUENCY;
+	this->SYMBOL = SYMBOL;
 
 	GAME_MAP = new Block * [HEIGHT];
 	for (int i = 0; i < HEIGHT; i++) {
@@ -30,7 +31,7 @@ Game::Game(int W, int H, int FREQUENCY, int SNAKE_COLOR, int FOOD_COLOR, int BOR
 	for (int i = 0; i < HEIGHT; i++) {
 		for (int j = 0; j < WIDTH; j++) {
 			if ((i == 0 || i == HEIGHT - 1) || ((i > 0 && i < HEIGHT - 1) && (j == 0 || j == WIDTH - 1))) {
-				GAME_MAP[i][j].symbol = char(219);
+				GAME_MAP[i][j].symbol = SYMBOL;
 			}
 
 			GAME_MAP[i][j].xPos = j;
@@ -89,8 +90,8 @@ bool Game::CreateFood(int x_pos, int y_pos) {
 
 		if (GAME_MAP[y_pos][x_pos].symbol == ' ') {
 
-			FOOD = Block(x_pos, y_pos, char(219));
-			GAME_MAP[y_pos][x_pos].symbol = char(219);
+			FOOD = Block(x_pos, y_pos, SYMBOL);
+			GAME_MAP[y_pos][x_pos].symbol = SYMBOL;
 
 			return true;
 		}
@@ -100,7 +101,7 @@ bool Game::CreateFood(int x_pos, int y_pos) {
 
 void Game::Start(int SNAKE_LENGTH) {
 
-	Snake SNAKE(SNAKE_LENGTH);
+	Snake SNAKE(SNAKE_LENGTH, SYMBOL);
 	HANDLE h = GetStdHandle(STD_OUTPUT_HANDLE);
 
 	DrawMap(SNAKE);
@@ -147,13 +148,13 @@ void Game::ResetCursor() {
 }
 
 
-Game::Snake::Snake(int length) : SNAKE_LEN(length) {
+Game::Snake::Snake(int length, char symbol) : SNAKE_LEN(length) {
 
 	SNAKE_BODY = new Block[SNAKE_LEN];
 	CURRENT_DIR = DOWN;
 
 	for (int i = 0; i < SNAKE_LEN; i++)
-		SNAKE_BODY[i] = Block(1, 0, char(219));
+		SNAKE_BODY[i] = Block(1, 0, symbol);
 }
 
 Game::Snake::~Snake() {
@@ -165,7 +166,7 @@ Game::Snake::~Snake() {
 void Game::Plot(Block* SNAKE_BODY, Snake& SNAKE) {
 
 	for (int i = 0; i < SNAKE.GetLength(); i++)
-		GAME_MAP[SNAKE_BODY[i].yPos][SNAKE_BODY[i].xPos].symbol = char(219);
+		GAME_MAP[SNAKE_BODY[i].yPos][SNAKE_BODY[i].xPos].symbol = SYMBOL;
 
 	DrawMap(SNAKE);
 
